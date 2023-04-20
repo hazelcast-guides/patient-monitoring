@@ -1,0 +1,135 @@
+---
+version: "3"
+
+services:
+
+  zookeeper1:
+    #    profiles:
+    #      - disabled
+    image: confluentinc/cp-zookeeper:7.3.0
+    hostname: zookeeper1
+    container_name: zookeeper1
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888"
+
+  broker1:
+    #    profiles:
+    #      - disabled
+    image: confluentinc/cp-kafka:7.3.0
+    hostname: broker1
+    container_name: broker1
+    restart: always
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9999:9999"
+    depends_on:
+      - zookeeper1
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:9092
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_BROKER_ID: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+      KAFKA_JMX_PORT: 9999
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+
+  management-center:
+    #    profiles:
+    #      - disabled
+    image: hazelcast/management-center:5.2.0
+    hostname: management-center
+    container_name: hz-mc
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      HZ_CLUSTERNAME: dev
+
+  grafana:
+    #    profiles:
+    #      - disabled
+    image: grafana/grafana
+    hostname: grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_DATASOURCE_NAME: Graphite
+      GF_DATASOURCE_TYPE: graphite
+      GF_DATASOURCE_URL: http://graphite:80
+    volumes:
+      - "/Users/mnelson/Projects/Repositories/Java/patient-monitoring-RELEASE/dashboards:/var/lib/grafana"
+
+  graphite:
+    #    profiles:
+    #      - disabled
+    image: graphiteapp/graphite-statsd
+    hostname: graphite
+    container_name: graphite
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "2003-2004:2003-2004"
+      - "2023-2024:2023-2024"
+      - "8125:8125"
+      - "8126:8126"
+
+  hazelcast-oss-one:
+    #    profiles:
+    #      - disabled
+    build: .
+    hostname: hazelcast-oss-one
+    container_name: hazelcast-oss-one
+    restart: always
+    ports:
+      - "5701:5701"
+    environment:
+      HZ_CLUSTERNAME: dev
+      CLASSPATH: "/project/patient-monitoring/common/target/patient-monitoring-common-0.0.1-SNAPSHOT.jar:/project/patient-monitoring/sink/target/patient-monitoring-sink-0.0.1-SNAPSHOT.jar"
+    volumes:
+      - ".:/project/patient-monitoring"
+    command: ./bin/hz start
+
+  app:
+    image: amazoncorretto:11
+    volumes:
+      - ".:/project/patient-monitoring"
+      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+    command: java -jar /project/patient-monitoring/app/target/patient-monitoring-app-0.0.1-SNAPSHOT.jar
+
+  pipeline:
+    image: amazoncorretto:11
+    volumes:
+      - ".:/project/patient-monitoring"
+      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+    command: java -Xmx1g -jar /project/patient-monitoring/pipeline/target/patient-monitoring-pipeline-0.0.1-SNAPSHOT.jar
+
+  rulesengine:
+    image: amazoncorretto:11
+    volumes:
+      - ".:/project/patient-monitoring"
+      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+    command: java -Xmx1g -jar /project/patient-monitoring/rulesengine/target/patient-monitoring-rulesengine-0.0.1-SNAPSHOT.jar
+
+  source:
+    image: amazoncorretto:11
+    volumes:
+      - ".:/project/patient-monitoring"
+      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+    command: java -Xmx12g -jar /project/patient-monitoring/source/target/patient-monitoring-source-0.0.1-SNAPSHOT.jar

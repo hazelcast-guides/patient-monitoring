@@ -1,0 +1,7 @@
+target/
+.DS_Store
+workspace.xml
+.run/
+.apt_generated_tests/
+.apt_generated/
+.idea/
