@@ -73,7 +73,7 @@ services:
       GF_DATASOURCE_TYPE: graphite
       GF_DATASOURCE_URL: http://graphite:80
     volumes:
-      - "/Users/mnelson/Projects/Repositories/Java/patient-monitoring-RELEASE/dashboards:/var/lib/grafana"
+      - "./dashboards:/var/lib/grafana"
 
   graphite:
     #    profiles:
@@ -110,26 +110,26 @@ services:
     image: amazoncorretto:11
     volumes:
       - ".:/project/patient-monitoring"
-      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+      - "./data:/project/patient-monitoring/data"
     command: java -jar /project/patient-monitoring/app/target/patient-monitoring-app-0.0.1-SNAPSHOT.jar
 
   pipeline:
     image: amazoncorretto:11
     volumes:
       - ".:/project/patient-monitoring"
-      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+      - "./data:/project/patient-monitoring/data"
     command: java -Xmx1g -jar /project/patient-monitoring/pipeline/target/patient-monitoring-pipeline-0.0.1-SNAPSHOT.jar
 
   rulesengine:
     image: amazoncorretto:11
     volumes:
       - ".:/project/patient-monitoring"
-      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+      - "./data:/project/patient-monitoring/data"
     command: java -Xmx1g -jar /project/patient-monitoring/rulesengine/target/patient-monitoring-rulesengine-0.0.1-SNAPSHOT.jar
 
   source:
     image: amazoncorretto:11
     volumes:
       - ".:/project/patient-monitoring"
-      - "/Users/mnelson/Projects/Data/Hazelcast/patient-monitoring/50/sorted:/project/patient-monitoring/data"
+      - "./data:/project/patient-monitoring/data"
     command: java -Xmx12g -jar /project/patient-monitoring/source/target/patient-monitoring-source-0.0.1-SNAPSHOT.jar

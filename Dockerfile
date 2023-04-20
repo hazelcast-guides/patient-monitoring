@@ -16,8 +16,6 @@ ARG HZ_HOME="/opt/hazelcast"
 ENV HZ_HOME="${HZ_HOME}" \
     CLASSPATH_DEFAULT="${HZ_HOME}/*" \
     JAVA_OPTS_DEFAULT="-Djava.net.preferIPv4Stack=true -XX:MaxRAMPercentage=80.0 -XX:MaxGCPauseMillis=5" \
-#    JYTHON_VERSION="${JYTHON_VERSION}" \
-#    JYTHON_HOME="${JYTHON_HOME}" \
     PROMETHEUS_PORT="" \
     PROMETHEUS_CONFIG="${HZ_HOME}/config/jmx_agent_config.yaml" \
     CLASSPATH="" \
@@ -27,13 +25,12 @@ ENV HZ_HOME="${HZ_HOME}" \
 		--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED" \
     HAZELCAST_CONFIG=config/hazelcast-docker.xml \
     LANG=C.UTF-8 \
-#    PATH=${HZ_HOME}/bin:$PATH:${JYTHON_HOME}/bin
     PATH=${HZ_HOME}/bin:$PATH:
 
 # Expose port
 EXPOSE 5701
 
-COPY *.jar get-hz-dist-zip.sh hazelcast-*.zip ${HZ_HOME}/
+COPY *.jar /config/get-hz-dist-zip.sh hazelcast-*.zip ${HZ_HOME}/
 
 # Install
 RUN echo "Installing Hazelcast" \
@@ -53,9 +50,7 @@ RUN echo "Installing Hazelcast" \
     && yum clean packages \
     && rm -rf ${HZ_HOME}/get-hz-dist-zip.sh ${HZ_HOME}/hazelcast-distribution.zip ${HZ_HOME}/tmp
 
-COPY log4j2.properties log4j2-json.properties jmx_agent_config.yaml ${HZ_HOME}/config/
-
-COPY "jython-standalone-2.7.3.jar" ${HZ_HOME}/lib
+COPY /config/log4j2.properties /config/log4j2-json.properties /config/jmx_agent_config.yaml ${HZ_HOME}/config/
 
 WORKDIR ${HZ_HOME}
 
