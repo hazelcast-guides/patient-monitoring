@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hazelcast-service
+  name: hazelcast-service
+  namespace: hazelcast
+spec:
+  type: NodePort
+  ports:
+    - name: hazelcast-port
+      port: 5701
+      nodePort: 5701
+      targetPort: 5701
+  selector:
+    app: hazelcast-oss-one
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hazelcast-oss-one
+  name: hazelcast-oss-one
+  namespace: hazelcast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hazelcast-oss-one
+  template:
+    metadata:
+      labels:
+        app: hazelcast-oss-one
+    spec:
+      containers:
+        - image: hazelcast-oss-one
+          imagePullPolicy: IfNotPresent
+          name: hazelcast-oss-one
+          ports:
+            - containerPort: 5701
