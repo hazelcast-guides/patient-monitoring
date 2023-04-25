@@ -75,6 +75,7 @@ services:
       GF_DATASOURCE_URL: http://graphite:80
     volumes:
       - "./dashboards:/var/lib/grafana"
+      - "./config/custom.ini:/var/lib/grafana/conf/custom.ini"
 
   graphite:
     #    profiles:
