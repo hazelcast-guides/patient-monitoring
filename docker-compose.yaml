@@ -55,7 +55,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      HZ_CLUSTERNAME: dev
+      MC_DEFAULT_CLUSTER: dev
+      MC_DEFAULT_CLUSTER_MEMBERS: hazelcast-oss-one:5701
 
   grafana:
     #    profiles:
