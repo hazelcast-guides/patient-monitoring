@@ -1,0 +1,39 @@
+apiVersion: 1
+
+providers:
+  - name: "PM : Alert List"
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 5
+    allowUiUpdates: false
+    options:
+      path: ./dashboards/PM-AlertList.json
+      foldersFromFilesStructure: true
+  - name: "PM : Patient Device Stream"
+    orgId: 2
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 5
+    allowUiUpdates: false
+    options:
+      path: ./dashboards/PM-PatientDeviceStream.json
+      foldersFromFilesStructure: true
+  - name: "PM : Patient Scorecard"
+    orgId: 3
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 5
+    allowUiUpdates: false
+    options:
+      path: ./dashboards/PM-PatientScorecard.json
+      foldersFromFilesStructure: true
+  - name: "PM : Patient Streaming Score"
+    orgId: 4
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 5
+    allowUiUpdates: false
+    options:
+      path: ./dashboards/PM-PatientStreamingScore.json
+      foldersFromFilesStructure: true

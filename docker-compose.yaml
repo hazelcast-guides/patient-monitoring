@@ -68,14 +68,17 @@ services:
     ports:
       - "3000:3000"
     environment:
+      GF_PATHS_HOME: /usr/share/grafana
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_DATASOURCE_NAME: Graphite
       GF_DATASOURCE_TYPE: graphite
       GF_DATASOURCE_URL: http://graphite:80
     volumes:
-      - "./dashboards:/usr/share/grafana/data"
-      - "./config/custom.ini:/usr/share/grafana/conf/custom.ini"
+      - "./config/custom.ini:/etc/grafana/config.ini"
+      - "./config/dashboards.yaml:/etc/grafana/provisioning"
+      - "./config/datasources.yaml:/etc/grafana/provisioning"
+      - "./dashboards:/var/lib/grafana/dashboards"
 
   graphite:
     #    profiles:
