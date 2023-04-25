@@ -58,12 +58,12 @@ RUN groupadd hazelcast && useradd -g hazelcast  hazelcast
 
 USER hazelcast
 
-RUN kubectl apply -f 00-namespace.yaml && \
-    kubectl apply -f 00-zookeeper1.yaml && \
-	kubectl apply -f 00-broker1.yaml && \
-	kubectl apply -f 01-namespace.yaml && \
-	kubectl apply -f 01-graphite.yaml && \
-	kubectl apply -f 02-namespace.yaml && \
-	kubectl apply -f 02-grafana.yaml && \
-	kubectl apply -f 03-namespace.yaml && \
-	kubectl apply -f 03-hazelcast.yaml
+#RUN kubectl apply -f 00-namespace.yaml && \
+#    kubectl apply -f 00-zookeeper1.yaml && \
+#	kubectl apply -f 00-broker1.yaml && \
+#	kubectl apply -f 01-namespace.yaml && \
+#	kubectl apply -f 01-graphite.yaml && \
+#	kubectl apply -f 02-namespace.yaml && \
+#	kubectl apply -f 02-grafana.yaml && \
+#	kubectl apply -f 03-namespace.yaml && \
+#	kubectl apply -f 03-hazelcast.yaml
