@@ -8,32 +8,32 @@ providers:
     updateIntervalSeconds: 5
     allowUiUpdates: false
     options:
-      path: ./dashboards/PM-AlertList.json
+      path: /var/lib/grafana/PM-AlertList.json
       foldersFromFilesStructure: true
   - name: "PM : Patient Device Stream"
-    orgId: 2
+    orgId: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
     allowUiUpdates: false
     options:
-      path: ./dashboards/PM-PatientDeviceStream.json
+      path: /var/lib/grafana/PM-PatientDeviceStream.json
       foldersFromFilesStructure: true
   - name: "PM : Patient Scorecard"
-    orgId: 3
+    orgId: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
     allowUiUpdates: false
     options:
-      path: ./dashboards/PM-PatientScorecard.json
+      path: /var/lib/grafana/PM-PatientScorecard.json
       foldersFromFilesStructure: true
   - name: "PM : Patient Streaming Score"
-    orgId: 4
+    orgId: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
     allowUiUpdates: false
     options:
-      path: ./dashboards/PM-PatientStreamingScore.json
+      path: /var/lib/grafana/PM-PatientStreamingScore.json
       foldersFromFilesStructure: true
