@@ -76,8 +76,8 @@ services:
       GF_DATASOURCE_URL: http://graphite:80
     volumes:
       - "./config/custom.ini:/etc/grafana/config.ini"
-      - "./config/dashboards.yaml:/etc/grafana/provisioning"
-      - "./config/datasources.yaml:/etc/grafana/provisioning"
+      - "./config/dashboards.yaml:/etc/grafana/provisioning/"
+      - "./config/datasources.yaml:/etc/grafana/provisioning/"
       - "./dashboards:/var/lib/grafana/dashboards"
 
   graphite:
