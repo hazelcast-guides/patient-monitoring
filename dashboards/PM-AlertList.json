@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_GRAPHITE",
+      "name": "GRAPHITE",
       "label": "Graphite",
       "description": "",
       "type": "datasource",
@@ -62,7 +62,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -73,7 +73,7 @@
             {
               "targetBlank": false,
               "title": "patient_scorecard",
-              "url": "http://hazelcast.talabs.local:3000/d/gBSt16W4z/patient-scorecard?orgId=1&refresh=5s&var-patient=${__series.name}﻿&﻿${__url_time_range}"
+              "url": "/d/gBSt16W4z/patient-scorecard?orgId=1&refresh=5s&var-patient=${__series.name}﻿&﻿${__url_time_range}"
             }
           ],
           "mappings": [
@@ -194,7 +194,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "hide": false,
           "refCount": 0,
@@ -220,7 +220,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 2,
@@ -244,7 +244,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 2,

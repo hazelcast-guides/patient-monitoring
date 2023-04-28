@@ -1,47 +1,12 @@
 apiVersion: 1
 
 providers:
-  - name: "PM : Alert List"
-    orgId: 1
-    folder: "Patient Monitoring"
-#    folderUid: 1
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 5
+  - name: "Patient Monitoring"
     allowUiUpdates: false
-    options:
-      path: /var/lib/grafana/PM-AlertList.json
-      foldersFromFilesStructure: true
-  - name: "PM : Patient Device Stream"
-    orgId: 1
-    folder: "Patient Monitoring"
-#    folderUid: 1
-    type: file
     disableDeletion: false
-    updateIntervalSeconds: 5
-    allowUiUpdates: false
-    options:
-      path: /var/lib/grafana/PM-PatientDeviceStream.json
-      foldersFromFilesStructure: true
-  - name: "PM : Patient Scorecard"
     orgId: 1
-    folder: "Patient Monitoring"
-#    folderUid: 1
     type: file
-    disableDeletion: false
     updateIntervalSeconds: 5
-    allowUiUpdates: false
     options:
-      path: /var/lib/grafana/PM-PatientScorecard.json
       foldersFromFilesStructure: true
-  - name: "PM : Patient Streaming Score"
-    orgId: 1
-    folder: "Patient Monitoring"
-#    folderUid: 1
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 5
-    allowUiUpdates: false
-    options:
-      path: /var/lib/grafana/PM-PatientStreamingScore.json
-      foldersFromFilesStructure: true
+      path: /var/lib/grafana/dashboards

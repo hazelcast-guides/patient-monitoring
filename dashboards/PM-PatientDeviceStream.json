@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_GRAPHITE",
+      "name": "GRAPHITE",
       "label": "Graphite",
       "description": "",
       "type": "datasource",
@@ -63,7 +63,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -142,7 +142,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "hide": false,
           "refCount": 0,
@@ -166,7 +166,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 0,
@@ -190,7 +190,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 0,
@@ -214,7 +214,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 2,
@@ -240,6 +240,7 @@
     "to": "now"
   },
   "timepicker": {
+    "hidden": false,
     "refresh_intervals": [
       "5s"
     ]

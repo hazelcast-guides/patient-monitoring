@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_GRAPHITE",
+      "name": "GRAPHITE",
       "label": "Graphite",
       "description": "",
       "type": "datasource",
@@ -78,7 +78,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "description": "",
       "fieldConfig": {
@@ -205,7 +205,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "BREATHING.*.$id"
@@ -217,7 +217,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "description": "",
       "fieldConfig": {
@@ -347,7 +347,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "CONSCIOUSNESS.*.$id"
@@ -359,7 +359,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -550,7 +550,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "aliasSub(HEART.*.$id, 'HEART.', '')"
@@ -562,7 +562,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -721,7 +721,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "OXYGEN-SATURATION-ONE.*.$id"
@@ -733,7 +733,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -937,7 +937,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "OXYGEN-SATURATION-TWO.*.$id"
@@ -949,7 +949,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -1124,7 +1124,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "RESPIRATORY.*.$id"
@@ -1136,7 +1136,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -1308,7 +1308,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "SYSTOLIC-BLOOD-PRESSURE.*.$id"
@@ -1320,7 +1320,7 @@
     {
       "datasource": {
         "type": "graphite",
-        "uid": "${DS_GRAPHITE}"
+        "uid": "GRAPHITE"
       },
       "fieldConfig": {
         "defaults": {
@@ -1495,7 +1495,7 @@
         {
           "datasource": {
             "type": "graphite",
-            "uid": "${DS_GRAPHITE}"
+            "uid": "GRAPHITE"
           },
           "refId": "A",
           "target": "TEMPERATURE.*.$id"
@@ -1517,7 +1517,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 2,
@@ -1541,7 +1541,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 0,
@@ -1565,7 +1565,7 @@
         "current": {},
         "datasource": {
           "type": "graphite",
-          "uid": "${DS_GRAPHITE}"
+          "uid": "GRAPHITE"
         },
         "definition": "",
         "hide": 2,
@@ -1592,6 +1592,7 @@
     "to": "now"
   },
   "timepicker": {
+    "hidden": false,
     "refresh_intervals": [
       "5s"
     ]
