@@ -89,7 +89,7 @@ services:
 #      - "./config/config.ini:/etc/grafana/config.ini"
       - "./config/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml"
       - "./config/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml"
-      - "./dashboards:source"
+      - "./dashboards:/var/lib/grafana"
 
   graphite:
     #    profiles:
