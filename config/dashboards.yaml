@@ -4,7 +4,7 @@ providers:
   - name: "PM : Alert List"
     orgId: 1
     folder: "Patient Monitoring"
-    folderUid: 1
+#    folderUid: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
@@ -15,7 +15,7 @@ providers:
   - name: "PM : Patient Device Stream"
     orgId: 1
     folder: "Patient Monitoring"
-    folderUid: 1
+#    folderUid: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
@@ -26,7 +26,7 @@ providers:
   - name: "PM : Patient Scorecard"
     orgId: 1
     folder: "Patient Monitoring"
-    folderUid: 1
+#    folderUid: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
@@ -37,7 +37,7 @@ providers:
   - name: "PM : Patient Streaming Score"
     orgId: 1
     folder: "Patient Monitoring"
-    folderUid: 1
+#    folderUid: 1
     type: file
     disableDeletion: false
     updateIntervalSeconds: 5
