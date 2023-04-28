@@ -68,7 +68,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GF_DATASOURCE_NAME: Graphite
+      GF_DATASOURCE_NAME: DS_GRAPHITE
       GF_DATASOURCE_TYPE: graphite
       GF_DATASOURCE_URL: http://graphite:80
       GF_PATHS_CONFIG: /etc/grafana/grafana.ini

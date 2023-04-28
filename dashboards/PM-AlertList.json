@@ -73,7 +73,7 @@
             {
               "targetBlank": false,
               "title": "patient_scorecard",
-              "url": "http://localhost:3000/d/gBSt16W4z/patient-scorecard?orgId=1&refresh=5s&var-patient=${__series.name}﻿&﻿${__url_time_range}"
+              "url": "http://hazelcast.talabs.local:3000/d/gBSt16W4z/patient-scorecard?orgId=1&refresh=5s&var-patient=${__series.name}﻿&﻿${__url_time_range}"
             }
           ],
           "mappings": [
