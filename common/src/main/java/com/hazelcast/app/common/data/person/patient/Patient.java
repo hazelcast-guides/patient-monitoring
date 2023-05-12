@@ -6,10 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 
-public class Patient extends Profile implements Serializable {
+public class Patient extends Profile {
     private static final Logger LOGGER = LogManager.getLogger("Patient");
 
-    private static final long serialVersionUID = 3386724407622870440L;
+//    private static final long serialVersionUID = 3386724407622870440L;
 
     private String patientId;
     private String breathing;

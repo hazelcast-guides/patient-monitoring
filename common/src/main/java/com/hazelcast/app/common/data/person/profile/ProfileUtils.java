@@ -20,36 +20,19 @@ import static java.util.stream.Collectors.toMap;
 public class ProfileUtils {
 	private static final Logger LOGGER = LogManager.getLogger("ProfileUtils");
 
-	private static volatile ProfileUtils obj = null;
-
-	private ProfileUtils() {
-	}
+	private static final ProfileUtils obj = new ProfileUtils();
 
 	public static ProfileUtils getInstance() {
-		try {
-			if (obj == null) {
-				// To make thread safe
-				synchronized (ProfileUtils.class) {
-					// check again as multiple threads
-					// can reach above step
-					if (obj == null)
-						obj = new ProfileUtils();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.info(e.getMessage());
-		}
 		return obj;
 	}
 
-	private synchronized Map<String, Profile> getProfileMap() {
+	private Map<String, Profile> getProfileMap() {
 		Resource resource = Resource.getInstance();
 		HazelcastInstance hazelcastInstance = ClientConnection.getInstance().connect("common", resource.getClusterName(),resource.getHazelcastIpAddress()[0]);
 		return hazelcastInstance.getMap(resource.getProfileMap());
 	}
 
-	public synchronized Profile getProfile(String profileIdIn) {
+	public Profile getProfile(String profileIdIn) {
 		Map<String, Profile> profileMap = getProfileMap();
 		return new Profile(
 				profileMap.get(profileIdIn).getProfileId(),
@@ -64,7 +47,7 @@ public class ProfileUtils {
 		);
 	}
 
-	private synchronized void loadProfileMap(Map<String, Profile> mapIn, String dataPathIn, String profileSourceIn) {
+	private void loadProfileMap(Map<String, Profile> mapIn, String dataPathIn, String profileSourceIn) {
 		Map<String, Profile> result;
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(dataPathIn.concat("/").concat(profileSourceIn)))))) {
 			result = reader.lines()
@@ -91,7 +74,7 @@ public class ProfileUtils {
 		}
 	}
 
-	public synchronized void createProfileMap(HazelcastInstance hazelcastInstanceIn, String profileMapIn, String dataPathIn, String profileSourceIn) {
+	public void createProfileMap(HazelcastInstance hazelcastInstanceIn, String profileMapIn, String dataPathIn, String profileSourceIn) {
 		Map<String, Profile> map = hazelcastInstanceIn.getMap(profileMapIn);
 		loadProfileMap(map, dataPathIn, profileSourceIn);
 	}

@@ -10,9 +10,11 @@ import java.util.Properties;
 public class Resource {
 	private static final Logger LOGGER = LogManager.getLogger("Resource");
 
-	private final static String DELIMITER = ",";
+	private static final String DELIMITER = ",";
 	private static final String FILENAME = "hazelcast.properties";
-	private static volatile Resource obj = null;
+
+	private static final Resource obj = new Resource();
+
 	private int capacity;
 	private String clusterName;
 	private String dataPath;
@@ -77,20 +79,6 @@ public class Resource {
 	}
 
 	public static Resource getInstance() {
-		try {
-			if (obj == null) {
-				// To make thread safe
-				synchronized (Resource.class) {
-					// check again as multiple threads
-					// can reach above step
-					if (obj == null)
-						obj = new Resource();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.info(e.getMessage());
-		}
 		return obj;
 	}
 

@@ -9,30 +9,13 @@ import org.apache.logging.log4j.Logger;
 public class ClientConnection {
     private static final Logger LOGGER = LogManager.getLogger("ClientConnection");
 
-    private static volatile ClientConnection obj = null;
-
-    private ClientConnection() {
-    }
+    private static final ClientConnection obj = new ClientConnection();
 
     public static ClientConnection getInstance() {
-        try {
-            if (obj == null) {
-                // To make thread safe
-                synchronized (ClientConnection.class) {
-                    // check again as multiple threads
-                    // can reach above step
-                    if (obj == null)
-                        obj = new ClientConnection();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.info(e.getMessage());
-        }
         return obj;
     }
 
-    public synchronized HazelcastInstance connect(String instanceNameIn, String clusterNameIn, String hazelcastIpAddressIn) {
+    public HazelcastInstance connect(String instanceNameIn, String clusterNameIn, String hazelcastIpAddressIn) {
         final ClientConfig config = new ClientConfig();
         try {
             config.getNetworkConfig().addAddress(hazelcastIpAddressIn);

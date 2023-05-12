@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 public class RulesEngine {
 	private static final Logger LOGGER = LogManager.getLogger("RulesEngine");
 
-	private final static String DELIMITER = ",";
+	private static final String DELIMITER = ",";
 
 	public RulesEngine(
 			HazelcastInstance hazelcastInstanceIn,
@@ -91,19 +91,6 @@ public class RulesEngine {
 				entry.getValue().getTemperature();
 	}
 
-//	public static String formatForPython(Entry<String, Patient> entryIn) {
-//		return entryIn.getKey() + DELIMITER +
-//				entryIn.getValue().getPatientId() + DELIMITER +
-//				entryIn.getValue().getBreathing() + DELIMITER +
-//				entryIn.getValue().getConsciousness() + DELIMITER +
-//				entryIn.getValue().getHeart() + DELIMITER +
-//				entryIn.getValue().getOxygenSaturationOne() + DELIMITER +
-//				entryIn.getValue().getOxygenSaturationTwo() + DELIMITER +
-//				entryIn.getValue().getRespiratory() + DELIMITER +
-//				entryIn.getValue().getSystolicBloodPressure() + DELIMITER +
-//				entryIn.getValue().getTemperature();
-//	}
-
 	public Pipeline createRulesEnginePipeline(
 			String hazelcastIpAddressIn,
 			String patientMapIn,
@@ -120,8 +107,6 @@ public class RulesEngine {
 		try {
 			StreamStage<Entry<String, Patient>> streamStage = pipeline.readFrom(Sources.<String, Patient>mapJournal(patientMapIn, JournalInitialPosition.START_FROM_CURRENT)).withoutTimestamps();
 			StreamStage<String> fromPython = streamStage.map(formatForPython()).apply(PythonTransforms.mapUsingPython(new PythonServiceConfig().setBaseDir(rulesEngineFullPath).setHandlerModule(rulesEngineSourceIn))).setLocalParallelism(1);
-//			StreamStage<String> fromPython = streamStage.map(RulesEngine::formatForPython);
-//			fromPython.writeTo(Sinks.logger());
 			fromPython.map(RulesEngine::makeResultEntry).writeTo(Sinks.logger());
 			fromPython.map(RulesEngine::makeResultEntry).writeTo(Sinks.map(resultMapIn));
 			fromPython.map(RulesEngine::makeResultEntry).writeTo(Result.buildGraphiteSinkResults(hazelcastIpAddressIn, processorNameIn, processorPortIn));

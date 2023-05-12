@@ -21,7 +21,8 @@ public class Main {
 		String[] topicMapNameArr = resource.getTopicAndMapName();
 
 		try {
-			startMessageBusFactory(topicMapNameArr, messageBusIpAddress.concat(":").concat(messageBusPort), dataPath, deviceSourceArr);
+			String messageBusIpPort = messageBusIpAddress.concat(":").concat(messageBusPort);
+			startMessageBusFactory(topicMapNameArr, messageBusIpPort, dataPath, deviceSourceArr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.info(e.getMessage());
@@ -35,11 +36,12 @@ public class Main {
 			String[] deviceSourceArrIn
 	) {
 		int size = topicMapNameArrIn.length;
-		ExecutorService executor = Executors.newFixedThreadPool(size / 2);
+		ExecutorService executor = Executors.newFixedThreadPool(size*2);
 
 		try {
 			for (int i = 0; i < size; i++) {
-				executor.execute(new MessageBusProducerFactory(topicMapNameArrIn[i], messageBusIpPortIn, dataPathIn.concat("/").concat(deviceSourceArrIn[i])));
+				String deviceSourcePath = dataPathIn.concat("/").concat(deviceSourceArrIn[i]);
+				executor.execute(new MessageBusProducerFactory(topicMapNameArrIn[i], messageBusIpPortIn, deviceSourcePath));
 //				executor.execute(new MessageBusConsumerFactory(topicMapNameArrIn[i], messageBusIpPortIn));
 			}
 		} catch (Exception e) {

@@ -19,45 +19,45 @@ public class MessageBusProducer {
 	private static final Logger LOGGER = LogManager.getLogger("MessageBusProducer");
 
 	private final static String DELIMITER = ",";
-	private final ThreadLocal<String> mbTopicName = new ThreadLocal<>();
+
 	private final ThreadLocal<String> messageBusIpPort = new ThreadLocal<>();
-	private final ThreadLocal<String> deviceSourcePath = new ThreadLocal<>();
 
 	public MessageBusProducer(String mbTopicNameIn, String messageBusIpPortIn, String deviceSourcePathIn) {
-		mbTopicName.set(mbTopicNameIn);
 		messageBusIpPort.set(messageBusIpPortIn);
-		deviceSourcePath.set(deviceSourcePathIn);
 
 		try {
-			produceRecords();
+			produceRecords(mbTopicNameIn, deviceSourcePathIn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.info(e.getMessage());
 		}
 	}
 
-	public synchronized void produceRecords() {
+	public void produceRecords(String mbTopicNameIn, String deviceSourcePathIn) {
 		try (KafkaProducer<String, String> producer = new KafkaProducer<>(kafkaProps())) {
-			Path path = Paths.get(deviceSourcePath.get());
+			Path path = Paths.get(deviceSourcePathIn);
 			List<String> lines = Files.readAllLines(path);
 			List<String[]> values = lines.stream().skip(1).map(line -> line.split(DELIMITER)).collect(Collectors.toList());
 
 			for (String[] items : values) {
 				String patientId = items[0];
 				String measurement = items[1];
-				if (mbTopicName.get().equalsIgnoreCase("BREATHING")) {
+				if (mbTopicNameIn.equalsIgnoreCase("BREATHING")) {
 					if (measurement.equalsIgnoreCase("true")) measurement = "air";
 					else measurement = "oxygen";
-				} else if (mbTopicName.get().equalsIgnoreCase("CONSCIOUSNESS")) {
+				} else if (mbTopicNameIn.equalsIgnoreCase("CONSCIOUSNESS")) {
 					if (measurement.equalsIgnoreCase("true")) measurement = "alert";
 					else measurement = "unalert";
 				}
-				ProducerRecord<String, String> producerRecord = new ProducerRecord<>(mbTopicName.get(), patientId, measurement);
+				ProducerRecord<String, String> producerRecord = new ProducerRecord<>(mbTopicNameIn, patientId, measurement);
 				producer.send(producerRecord);
+				Thread.sleep(100);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			LOGGER.info(new RuntimeException(e).getMessage());
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -66,6 +66,7 @@ public class MessageBusProducer {
 		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, messageBusIpPort.get());
 		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getCanonicalName());
 		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getCanonicalName());
+		props.setProperty(ProducerConfig.ACKS_CONFIG, "0");
 		return props;
 	}
 
